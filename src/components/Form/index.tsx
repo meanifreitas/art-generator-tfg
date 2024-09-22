@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { defaultTheme } from "../../styles/theme";
 import { Spinner } from "../Spinner";
+import { fetchData } from "../../services/apiService";
 
 type Inputs = {
   prompt: string;
@@ -40,21 +41,19 @@ export function Form() {
       formData.append("style_id", "29");
       formData.append("aspect_ratio", "4:3");
 
-      const response = await fetch('https://api.vyro.ai/v1/imagine/api/generations', {
+      const response = await fetchData('https://api.vyro.ai/v1/imagine/api/generations', {
         method: "POST",
-        headers: {
-          "Authorization": "Bearer vk-vy2icOmy8qdw2Ub4232bJMD3kbFJYBK7QYr3axRLLWEIF2Q4"
-        },
         body: formData
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao gerar a imagem");
+        throw new Error("Error generating image");
       }
 
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
       const base64Image = await convertBlobToBase64(blob);
+      
       localStorage.setItem("generatedImage", base64Image);
       setImage(imageUrl);
       setLoading(false);
