@@ -4,6 +4,7 @@ import { DownloadButton, FormContainer, FormElement, ImageContainer, NoImage, Re
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { defaultTheme } from "../../styles/theme";
+import { Spinner } from "../Spinner";
 
 type Inputs = {
   prompt: string;
@@ -12,6 +13,7 @@ type Inputs = {
 export function Form() {
   const { register, handleSubmit, watch } = useForm<Inputs>();
   const [image, setImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
     const savedImage = localStorage.getItem("generatedImage");
@@ -31,12 +33,12 @@ export function Form() {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
+      setLoading(true);
       const formData = new FormData();
 
       formData.append("prompt", data.prompt);
       formData.append("style_id", "29");
       formData.append("aspect_ratio", "4:3");
-
 
       const response = await fetch('https://api.vyro.ai/v1/imagine/api/generations', {
         method: "POST",
@@ -55,6 +57,7 @@ export function Form() {
       const base64Image = await convertBlobToBase64(blob);
       localStorage.setItem("generatedImage", base64Image);
       setImage(imageUrl);
+      setLoading(false);
     } catch (e) {
       console.log("Error generating image:", e);
       setImage(null);
@@ -85,19 +88,24 @@ export function Form() {
           disabled={!prompt}
         />
       </FormElement>
-
-      {image ? (
+      { loading ? (
         <ResultContainer>
+          <Spinner />
+        </ResultContainer>
+      ) : (
+        image ? (
+          <ResultContainer>
           <ImageContainer src={image} alt="Generated" />
           <DownloadButton onClick={handleDownload}>
             <Download size={20} color={defaultTheme.text}/>
           </DownloadButton>
         </ResultContainer>
-      ) : (
-        <NoImage>
+        ) : (
+          <NoImage>
           <Image size={30} color={defaultTheme.text}/>
           <p>Nothing to show,<br/>generate your art</p>
         </NoImage>
+        )
       )}
     </FormContainer>
   );
