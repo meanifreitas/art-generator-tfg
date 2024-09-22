@@ -18,4 +18,8 @@ export const ButtonContainer = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.hover};
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
