@@ -39,7 +39,8 @@ export const TextArea = styled.textarea`
 export const ResultContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 65vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,8 +50,9 @@ export const ResultContainer = styled.div`
 
 export const ImageContainer = styled.img`
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
   border-radius: inherit;
 `;
 
