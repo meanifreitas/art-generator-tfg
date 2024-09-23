@@ -9,4 +9,9 @@ export const MainContainer = styled.main`
   border-radius: 20px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+    border-radius: 0;
+  }
 `;

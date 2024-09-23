@@ -4,6 +4,13 @@ export const FormContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   padding: 0 2rem;
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
 `;
 
 export const FormElement = styled.form`
@@ -30,7 +37,6 @@ export const TextArea = styled.textarea`
 `;
 
 export const ResultContainer = styled.div`
-  padding-left: 2rem;
   position: relative;
   width: 100%;
   height: 100%;
@@ -49,8 +55,7 @@ export const ImageContainer = styled.img`
 `;
 
 export const NoImage = styled.div`
-  margin-left: 2rem;
-  height: 34rem;
+  height: 25rem;
   justify-self: stretch;
   border-radius: 6px;
   background-color: ${(props) => props.theme.background};
@@ -59,6 +64,10 @@ export const NoImage = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    height: 18rem;
+  }
 `;
 
 export const DownloadButton = styled.button`
@@ -80,6 +89,8 @@ export const DownloadButton = styled.button`
   }
 `;
 
-export const Generating = styled.div`
-  
+export const Text = styled.p`
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: ${(props) => props.theme.text}
 `;

@@ -1,6 +1,6 @@
 import { Brush, Download, Image } from "lucide-react";
 import { Button } from "../Button";
-import { DownloadButton, FormContainer, FormElement, ImageContainer, NoImage, ResultContainer, TextArea } from "./styles";
+import { DownloadButton, FormContainer, FormElement, ImageContainer, NoImage, ResultContainer, Text, TextArea } from "./styles";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { defaultTheme } from "../../styles/theme";
@@ -102,7 +102,7 @@ export function Form() {
         ) : (
           <NoImage>
           <Image size={30} color={defaultTheme.text}/>
-          <p>Nothing to show,<br/>generate your art</p>
+          <Text>Nothing to show,<br/>generate your art</Text>
         </NoImage>
         )
       )}
